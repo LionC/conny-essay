@@ -52,8 +52,8 @@
             flex-direction: row;
             flex-wrap: wrap;
 
-            transition: opacity .7s ease-in-out;
             opacity: 0;
+            transition: opacity .7s ease-in-out;
         }
 
         .choice-container--shown  {
@@ -81,7 +81,7 @@
             An Essay on Something
         </h1>
 
-        <div id="initial-player" class="player-container player-container--shown">
+        <div id="initial-player" class="player-container--shown player-container">
             <audio
                 controls
                 autoplay
@@ -99,7 +99,7 @@
             <button onclick="choose('2')" class="choice">CHOICE</button>
         </div>
 
-        <div id="end-player" class="player-container player-container--hidden">
+        <div id="end-player" class="player-container--hidden player-container">
             <audio id="end-audio" controls></audio>
         </div>
     </main>
