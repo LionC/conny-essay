@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <title>
+        An Essay on Something
+    </title>
+
+    <meta name="description" content="">
+
+    <link rel="icon" href="img/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Pathway+Gothic+One&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <style>
+        html, body {
+            margin: 0;
+            padding:  0;
+
+            background-color: black;
+            color: white;
+
+            font-family: 'Pathway Gothic One', sans-serif;
+        }
+
+        .headline {
+            text-align: center;
+        }
+
+        .player-container {
+            display: flex;
+            justify-content: center;
+            padding: 70px 0;
+
+            transition: opacity .7s ease-in-out;
+        }
+
+        .player-container--hidden {
+            opacity: 0;
+        }
+
+        .player-container--shown {
+            opacity: 1;
+        }
+
+        .choice-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            transition: opacity .7s ease-in-out;
+            opacity: 0;
+        }
+
+        .choice-container--shown  {
+            opacity: 1;
+        } 
+        
+        .choice {
+            margin: 15px;
+            width: calc((100% - 90px) / 3); 
+
+            height: 40px;
+            font-size: 25px;
+            outline: none;
+            border: none;
+            cursor: pointer;
+
+            font-family: 'Pathway Gothic One', sans-serif;
+            background-color: transparent;
+            color: #aaaaaa;
+        }
+    </style>
+
+    <main>
+        <h1 class="headline">
+            An Essay on Something
+        </h1>
+
+        <div id="initial-player" class="player-container player-container--shown">
+            <audio
+                controls
+                autoplay
+                src="./1.mp3"
+                onended="onFirstPartPlayed()"
+            ></audio>
+        </div>
+
+        <div class="choice-container">
+            <button onclick="choose('2')" class="choice">CHOICE</button>
+            <button onclick="choose('2')" class="choice">CHOICE</button>
+            <button onclick="choose('2')" class="choice">CHOICE</button>
+            <button onclick="choose('2')" class="choice">CHOICE</button>
+            <button onclick="choose('2')" class="choice">CHOICE</button>
+            <button onclick="choose('2')" class="choice">CHOICE</button>
+        </div>
+
+        <div id="end-player" class="player-container player-container--hidden">
+            <audio id="end-audio" controls></audio>
+        </div>
+    </main>
+
+    <script>
+        function onFirstPartPlayed() {
+            var initialPlayer = document.querySelector('#initial-player')
+            initialPlayer.classList.add('player-container--hidden')
+            initialPlayer.classList.remove('player-container--shown')
+
+            document.querySelector('.choice-container').classList.add('choice-container--shown')
+        }
+
+        function choose(choice) {
+            document.querySelector('.choice-container').classList.remove('choice-container--shown')
+
+            var endPlayer = document.querySelector('#end-player')
+            endPlayer.classList.add('player-container--shown')
+            endPlayer.classList.remove('player-container--hidden')
+
+            var audio = document.querySelector('#end-audio')
+            audio.src = choice + '.mp3'
+            audio.play()
+        }
+    </script>
+</body>
+
+</html>
