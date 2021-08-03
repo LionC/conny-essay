@@ -118,7 +118,7 @@
             <audio
                 controls
                 autoplay
-                src="./1.mp3"
+                src="./start.mp3"
                 onended="onFirstPartPlayed()"
             ></audio>
         </div>
@@ -164,9 +164,9 @@
             A: 'A.pdf',
             B: 'B.pdf',
             C: 'C.pdf',
-            D: 'D.pdf',
+            D: 'https://www.youtube.com/watch?v=QEX-FfFzm_E',
             E: 'E.pdf',
-            F: 'https://www.youtube.com/watch?v=QEX-FfFzm_E',
+            F: 'F.pdf',
         }
 
         function onSecondPartPlayed() {
@@ -187,7 +187,7 @@
             endPlayer.classList.remove('player-container--hidden')
 
             var audio = document.querySelector('#end-audio')
-            audio.src = theChoice + '.wav'
+            audio.src = theChoice + '.mp3'
             audio.play()
         }
 
