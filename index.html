@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
     <title>
-        An Essay on Something
+        My Tribute to Stanley
     </title>
 
     <meta name="description" content="">
@@ -24,6 +24,12 @@
             color: white;
 
             font-family: 'Pathway Gothic One', sans-serif;
+        }
+
+        a, a:active {
+            color: inherit;
+            font-family: inherit;
+            font-size: 2em;
         }
 
         .headline {
@@ -63,24 +69,49 @@
         } 
         
         .choice {
-            margin: 15px;
-            width: calc((100% - 90px) / 3); 
+            margin: 20px;
+            width: calc((100% - 120px) / 3); 
 
             height: 40px;
             font-size: 25px;
             outline: none;
-            border: none;
+            border: 1px solid white;
+            border-radius: 10px;
             cursor: pointer;
 
             font-family: 'Pathway Gothic One', sans-serif;
             background-color: transparent;
             color: #aaaaaa;
         }
+
+        .choice--backtohome {
+            margin-top: 100px;
+        }
+
+        .file-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 70px 0;
+
+            opacity: 0;
+        }
+
+        .file-container--hidden {
+            opacity: 0;
+        }
+
+        .file-container--shown {
+            transition: opacity .7s ease-in-out;
+            opacity: 1;
+        }
+
     </style>
 
     <main>
         <h1 class="headline">
-            An Essay on Something
+            My Tribute to Stanley
         </h1>
 
         <div id="initial-player" class="player-container--shown player-container">
@@ -93,29 +124,62 @@
         </div>
 
         <div class="choice-container">
-            <button onclick="choose('2')" class="choice">CHOICE</button>
-            <button onclick="choose('2')" class="choice">CHOICE</button>
-            <button onclick="choose('2')" class="choice">CHOICE</button>
-            <button onclick="choose('2')" class="choice">CHOICE</button>
-            <button onclick="choose('2')" class="choice">CHOICE</button>
-            <button onclick="choose('2')" class="choice">CHOICE</button>
+            <button onclick="choose('A')" class="choice">A</button>
+            <button onclick="choose('B')" class="choice">B</button>
+            <button onclick="choose('C')" class="choice">C</button>
+            <button onclick="choose('D')" class="choice">D</button>
+            <button onclick="choose('E')" class="choice">E</button>
+            <button onclick="choose('F')" class="choice">F</button>
         </div>
 
         <div id="end-player" class="player-container--hidden player-container">
-            <audio id="end-audio" controls></audio>
+            <audio
+                id="end-audio"
+                controls
+                onended="onSecondPartPlayed()"
+            ></audio>
+        </div>
+
+        <div id="end-file" class="file-container file-container--hidden">
+            <a id="final-file" target="_blank">This is what she sent them</a>
+
+            <button onclick="backToHome()" class="choice choice--backtohome">
+                THE END IS NEVER THE END IS NEVER THE
+            </button>
         </div>
     </main>
 
     <script>
+        var theChoice = 0
+
         function onFirstPartPlayed() {
-            var initialPlayer = document.querySelector('#initial-player')
-            initialPlayer.classList.add('player-container--hidden')
-            initialPlayer.classList.remove('player-container--shown')
+            var player = document.querySelector('#initial-player')
+            player.classList.add('player-container--hidden')
+            player.classList.remove('player-container--shown')
 
             document.querySelector('.choice-container').classList.add('choice-container--shown')
         }
 
+        var finalLinkMap = {
+            A: 'A.pdf',
+            B: 'B.pdf',
+            C: 'C.pdf',
+            D: 'D.pdf',
+            E: 'E.pdf',
+            F: 'https://www.youtube.com/watch?v=QEX-FfFzm_E',
+        }
+
+        function onSecondPartPlayed() {
+            var player = document.querySelector('#end-audio')
+            player.classList.add('player-container--hidden')
+            player.classList.remove('player-container--shown')
+
+            document.querySelector('.file-container').classList.add('file-container--shown')
+            document.querySelector('#final-file').href = finalLinkMap[theChoice]
+        }
+
         function choose(choice) {
+            theChoice = choice
             document.querySelector('.choice-container').classList.remove('choice-container--shown')
 
             var endPlayer = document.querySelector('#end-player')
@@ -123,8 +187,12 @@
             endPlayer.classList.remove('player-container--hidden')
 
             var audio = document.querySelector('#end-audio')
-            audio.src = choice + '.mp3'
+            audio.src = theChoice + '.wav'
             audio.play()
+        }
+
+        function backToHome() {
+            location.reload()
         }
     </script>
 </body>
