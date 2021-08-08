@@ -157,7 +157,9 @@
             player.classList.add('player-container--hidden')
             player.classList.remove('player-container--shown')
 
-            document.querySelector('.choice-container').classList.add('choice-container--shown')
+            var newPlayer = document.querySelector('.choice-container')
+            newPlayer.classList.add('choice-container--shown')
+            newPlayer.scrollIntoView(true)
         }
 
         var finalLinkMap = {
@@ -174,7 +176,10 @@
             player.classList.add('player-container--hidden')
             player.classList.remove('player-container--shown')
 
-            document.querySelector('.file-container').classList.add('file-container--shown')
+            var fileElement = document.querySelector('.file-container')
+            fileElement.classList.add('file-container--shown')
+            fileElement.scrollIntoView(true)
+
             document.querySelector('#final-file').href = finalLinkMap[theChoice]
         }
 
@@ -185,6 +190,7 @@
             var endPlayer = document.querySelector('#end-player')
             endPlayer.classList.add('player-container--shown')
             endPlayer.classList.remove('player-container--hidden')
+            endPlayer.scrollIntoView(true)
 
             var audio = document.querySelector('#end-audio')
             audio.src = theChoice + '.mp3'
